@@ -1,0 +1,72 @@
+//网易2017春招笔试题
+//一个双核CPU的两个核能够同时的处理任务，现在有n个已知数据量的任务需要交给CPU处理
+//假设已知的CPU的每个核1s可以处理1KB，每个核同时只能处理一项任务，n个任务可以按照任意顺序存放CPU进行处理，
+//现在需要设计一个方案让CPU处理这些任务所需的时间最少，求这个最小的时间。
+//输入描述：
+//输入包括两行，第一行为整数n（1<=n<=50），第二行为n个整数length[i](1024<=length[i]<=4194304),
+//表示每个任务的长度为length[i]KB，每个数均为1024的倍数
+//输出描述:
+//输出一个整数，表示最少需要的处理时间
+//输入样例1：
+//5
+//3072 3072 7168 3072 1024
+//输出样例1：
+//9216
+
+#include "stdio.h"
+#include "malloc.h"
+
+void Bubble_Sort(int n, int a[])
+{
+	int temp, flag;
+	for (int i = 0; i < n - 1; i++)
+	{
+		flag = 0;
+		for (int j = 0; j < n - 1; j++)
+		{
+			if (a[j] < a[j + 1])
+			{
+				temp = a[j];
+				a[j] = a[j + 1];
+				a[j+1] = temp;
+				flag = 1;
+			}
+		}
+		if (flag == 0)
+			break;
+	}
+}
+
+
+
+int main()
+{
+	int n,a=0,b=0;
+	int *length;
+	scanf_s("%d",&n);
+	length = (int*)malloc(sizeof(int)*n);
+	for (int i = 0; i < n; i++)
+	{
+		scanf_s("%d", &length[i]);
+		length[i] = length[i] / 1024;
+	}
+	Bubble_Sort(n,length);
+	for (int i = 0; i < n; i++)
+	{
+		if (i == 0)
+		{
+			a += length[i];
+			continue;
+		}
+		if (a > b)
+			b += length[i];
+		else
+			a += length[i];
+	}
+	if (a > b)
+		printf_s("%d\n", a * 1024);
+	else
+		printf_s("%d\n", b * 1024);
+    return 0;
+}
+
