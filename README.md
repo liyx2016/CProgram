@@ -1,2 +1,2 @@
 # CProgram
-Using some C/C++ code solves fundamental algorithm
+Some C/C++ codes to solve fundamental algorithm
